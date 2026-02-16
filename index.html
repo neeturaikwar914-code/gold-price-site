@@ -88,38 +88,30 @@ async function getGoldPrice() {
 
   try {
 
-    // Gold price API (free demo API)
-    let response = await fetch("https://api.metals.live/v1/spot/gold");
+    let response = await fetch("/.netlify/functions/gold");
     let data = await response.json();
 
-    let goldUSD = data[0].price;
-
-    // USD to INR rate (approx)
-    let usdToInr = 83;
-
-    let goldINR = (goldUSD / 31.1035) * usdToInr;
-
-    let gold24Price = Math.round(goldINR);
-    let gold22Price = Math.round(goldINR * 0.92);
+    let gold24 = Math.round(data.price / 31.1035);
+    let gold22 = Math.round(gold24 * 0.92);
 
     document.getElementById("gold24").innerHTML =
-      "₹ " + gold24Price + " / gram";
+      "₹ " + gold24 + " / gram";
 
     document.getElementById("gold22").innerHTML =
-      "₹ " + gold22Price + " / gram";
+      "₹ " + gold22 + " / gram";
 
   } catch (error) {
 
-    document.getElementById("gold24").innerHTML = "Unable to load";
-    document.getElementById("gold22").innerHTML = "Unable to load";
+    document.getElementById("gold24").innerHTML = "API Error";
+    document.getElementById("gold22").innerHTML = "API Error";
 
   }
 
 }
 
 getGoldPrice();
+setInterval(getGoldPrice, 60000);
 
-</script>
-
+      </script>
 </body>
-  </html>
+</html>
