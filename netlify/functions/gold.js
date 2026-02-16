@@ -1,12 +1,9 @@
+
 exports.handler = async function () {
 
-  const response = await fetch("https://www.goldapi.io/api/XAU/INR", {
-    method: "GET",
-    headers: {
-      "x-access-token": "YOUR_NEW_API_KEY",
-      "Content-Type": "application/json"
-    }
-  });
+  const response = await fetch(
+    "https://api.metalpriceapi.com/v1/latest?api_key=YOUR_NEW_KEY&base=USD&currencies=INR,XAU"
+  );
 
   const data = await response.json();
 
