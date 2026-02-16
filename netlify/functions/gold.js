@@ -2,7 +2,7 @@
 exports.handler = async function () {
 
   const response = await fetch(
-    "https://api.metalpriceapi.com/v1/latest?85d71f26ed0dd98a014862c5cf389501=YOUR_NEW_KEY&base=USD&currencies=INR,XAU"
+    "https://api.metalpriceapi.com/v1/latest?api_key=85d71f26ed0dd98a014862c5cf389501&base=USD&currencies=INR,XAU"
   );
 
   const data = await response.json();
