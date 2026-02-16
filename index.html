@@ -91,7 +91,15 @@ async function getGoldPrice() {
     let response = await fetch("/.netlify/functions/gold");
     let data = await response.json();
 
-    let gold24 = Math.round(data.price / 31.1035);
+    let usdToInr = data.rates.INR;
+    let goldPerUSD = data.rates.XAU;
+
+    // 1 XAU = 1 ounce gold
+    let goldUSD = 1 / goldPerUSD;
+
+    let goldINRperGram = (goldUSD / 31.1035) * usdToInr;
+
+    let gold24 = Math.round(goldINRperGram);
     let gold22 = Math.round(gold24 * 0.92);
 
     document.getElementById("gold24").innerHTML =
@@ -112,6 +120,6 @@ async function getGoldPrice() {
 getGoldPrice();
 setInterval(getGoldPrice, 60000);
 
-      </script>
+</script>
 </body>
 </html>
